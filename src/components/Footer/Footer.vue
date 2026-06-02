@@ -24,6 +24,9 @@
       </section>
       <section class="flex flex-col items-center gap-2">
         <div class="flex gap-6">
+          <a title="打赏站长" target="_blank" href="/reward.webp">
+            <img class="w-8" src="@/assets/images/footer/shang.svg" />
+          </a>
 
         </div>
         <span class="w-full font-bold text-lg text-center">图屋图床</span>
