@@ -11,9 +11,8 @@
       </AlertDescription>
     </Alert>
 
-    <!-- 顶部广告（先空白，后期填图片链接） -->
+    <!-- 顶部广告空位 -->
     <div class="ad-top my-4 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
-      <!-- 上线替换：href="广告链接" src="图片URL" -->
       <a href="" target="_blank">
         <img src="" alt="广告" class="max-w-full h-auto" />
       </a>
@@ -39,13 +38,13 @@
     <Upload v-model="fileList" :UploadConfig="UploadConfig" :uploadAPI="uploadAPI" />
     <section v-show="fileList.length" class="vh-tools">
       <Button @click="fileList = []">清空</Button>
-      <Button @click="vh.CopyText(fileList.map(item => item.upload_blob).join('\n'))">复制全部</Button>
+      <Button @click="copyAll">复制全部</Button>
     </section>
 
     <!-- 图片列表 -->
     <ResList v-model="fileList" :nodeHost="nodeHost" />
 
-    <!-- 底部广告 -->
+    <!-- 底部广告空位 -->
     <div class="ad-bottom mt-6 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
       <a href="" target="_blank">
         <img src="" alt="底部广告" class="max-w-full h-auto" />
@@ -66,6 +65,13 @@ import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
+// 定义上传项类型，解决TS any报错
+interface FileItem {
+  upload_status: string
+  upload_result: string
+  upload_blob?: string
+}
+
 const nodeHost = ref(import.meta.env.VITE_IMG_API_URL || location.origin)
 const uploadAPI = ref(`${import.meta.env.VITE_IMG_API_URL || location.origin}/upload`)
 
@@ -75,15 +81,21 @@ const UploadConfig = ref({
   MaxSize: 15
 })
 
-const fileList = ref(JSON.parse(localStorage.getItem('zychUpImageList') || '[]'))
+const fileList = ref<FileItem[]>(JSON.parse(localStorage.getItem('zychUpImageList') || '[]'))
 
-watch(fileList, (newVal) => {
+// 复制全部链接函数
+const copyAll = () => {
+  const text = fileList.value.map(item => item.upload_blob).join('\n')
+  vh.CopyText(text)
+}
+
+watch(fileList, (newVal: FileItem[]) => {
   localStorage.setItem(
     'zychUpImageList',
     JSON.stringify(
       newVal
-        .filter(item => item.upload_status === 'success')
-        .map(item => {
+        .filter((item: FileItem) => item.upload_status === 'success')
+        .map((item: FileItem) => {
           item.upload_blob = formatURL({ nodeHost: nodeHost.value }, item.upload_result)
           return item
         })
