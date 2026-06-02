@@ -9,6 +9,14 @@
       </AlertDescription>
     </Alert>
 
+    <!-- 上方广告位 -->
+    <div class="ad-top my-4 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
+      <a href="广告链接" target="_blank">
+        <img src="广告图片地址" alt="广告" class="max-w-full h-auto">
+      </a>
+      <!-- JS广告就注释上面，粘贴广告代码 -->
+    </div>
+
     <!-- 工具栏 -->
     <div class="pt-6 flex items-center text-sm">
       <div class="sync shrink-0">
@@ -26,9 +34,19 @@
     </div>
     <!-- 上传 -->
     <Upload v-model="fileList" :UploadConfig="UploadConfig" :uploadAPI="uploadAPI" />
-    <section v-show="fileList.length" class="vh-tools"><Button @click="fileList = []">清空</Button><Button @click="vh.CopyText(fileList.map((i: any) => i.upload_blob).join('\n'))">复制全部</Button></section>
+    <section v-show="fileList.length" class="vh-tools">
+      <Button @click="fileList = []">清空</Button>
+      <Button @click="vh.CopyText(fileList.map((i: any) => i.upload_blob).join('\n'))">复制全部</Button>
+    </section>
     <!-- 展示 -->
     <ResList v-model="fileList" :nodeHost="nodeHost" />
+
+    <!-- 底部广告位（列表最下方） -->
+    <div class="ad-bottom mt-6 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
+      <a href="底部广告链接" target="_blank">
+        <img src="底部广告图片" alt="底部广告" class="max-w-full h-auto">
+      </a>
+    </div>
   </section>
 </template>
 <script setup lang="ts">
@@ -71,4 +89,10 @@ watch(fileList, (newVal) => {
 
 <style scoped lang="less">
 @import 'Home.less';
+.ad-top{
+  min-height:70px;
+}
+.ad-bottom{
+  min-height:70px;
+}
 </style>
