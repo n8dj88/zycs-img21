@@ -23,7 +23,6 @@
         </p>
       </section>
       <section class="flex flex-col items-center gap-2">
- 
         <span class="w-full font-bold text-lg text-center">图屋图床</span>
       </section>
     </main>
