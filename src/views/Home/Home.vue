@@ -11,14 +11,14 @@
       </AlertDescription>
     </Alert>
 
-    <!-- 上方广告位 -->
+    <!-- 顶部广告位 -->
     <div class="ad-top my-4 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
-      <a href="广告跳转链接" target="_blank">
-        <img src="广告图片地址" alt="广告" class="max-w-full h-auto" />
+      <a href="替换广告跳转链接" target="_blank">
+        <img src="替换广告图片地址" alt="广告" class="max-w-full h-auto" />
       </a>
     </div>
 
-    <!-- 工具栏 -->
+    <!-- 切换栏 -->
     <div class="pt-6 flex items-center text-sm">
       <div class="sync shrink-0">
         <RadioGroup default-value="sync" class="flex items-center gap-4 [&>label]:flex [&>label]:items-center [&>label]:space-x-2 [&>label]:cursor-pointer">
@@ -34,17 +34,18 @@
       </div>
     </div>
 
-    <!-- 上传 -->
+    <!-- 上传组件 -->
     <Upload v-model="fileList" :UploadConfig="UploadConfig" :uploadAPI="uploadAPI" />
+
     <section v-show="fileList.length" class="vh-tools">
       <Button @click="fileList = []">清空</Button>
-      <Button @click="vh.CopyText(fileList.map(i => i.upload_blob).join('\n'))">复制全部</Button>
+      <Button @click="vh.CopyText(fileList.map(item => item.upload_blob).join('\n'))">复制全部</Button>
     </section>
 
-    <!-- 图片列表 -->
+    <!-- 结果列表 -->
     <ResList v-model="fileList" :nodeHost="nodeHost" />
 
-    <!-- 页面底部广告位 -->
+    <!-- 底部广告位 -->
     <div class="ad-bottom mt-6 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
       <a href="底部广告链接" target="_blank">
         <img src="底部广告图片地址" alt="底部广告" class="max-w-full h-auto" />
@@ -54,32 +55,28 @@
 </template>
 
 <script setup lang="ts">
-import vh from 'vh-plugin';
-import { ref, watch } from 'vue';
-import { formatURL } from '@/utils/index';
-import { Button } from '@/components/ui/button';
-import Upload from '@/components/Upload/Upload.vue';
-import ResList from '@/components/ResList/ResList.vue';
-import { RocketIcon } from '@radix-icons/vue';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import vh from 'vh-plugin'
+import { ref, watch } from 'vue'
+import { formatURL } from '@/utils/index'
+import { Button } from '@/components/ui/button'
+import Upload from '@/components/Upload/Upload.vue'
+import ResList from '@/components/ResList/ResList.vue'
+import { RocketIcon } from '@radix-icons/vue'
+import { Label } from '@/components/ui/label'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
-// IPFS接口地址
-const nodeHost = ref<string>(import.meta.env.VITE_IMG_API_URL || location.origin);
-const uploadAPI = ref<string>(`${import.meta.env.VITE_IMG_API_URL || location.origin}/upload`);
+const nodeHost = ref(import.meta.env.VITE_IMG_API_URL || location.origin)
+const uploadAPI = ref(`${import.meta.env.VITE_IMG_API_URL || location.origin}/upload`)
 
-// 上传配置
 const UploadConfig = ref({
   AcceptTypes: 'image/*',
   Max: 0,
-  MaxSize: 15,
-});
+  MaxSize: 15
+})
 
-// 本地缓存上传记录
-const fileList = ref(JSON.parse(localStorage.getItem('zychUpImageList') || '[]'));
+const fileList = ref(JSON.parse(localStorage.getItem('zychUpImageList') || '[]'))
 
-// 监听列表变化存入本地
 watch(fileList, (newVal) => {
   localStorage.setItem(
     'zychUpImageList',
@@ -87,12 +84,12 @@ watch(fileList, (newVal) => {
       newVal
         .filter(item => item.upload_status === 'success')
         .map(item => {
-          item.upload_blob = formatURL({ nodeHost: nodeHost.value }, item.upload_result);
-          return item;
+          item.upload_blob = formatURL({ nodeHost: nodeHost.value }, item.upload_result)
+          return item
         })
     )
-  );
-});
+  )
+})
 </script>
 
 <style scoped lang="less">
