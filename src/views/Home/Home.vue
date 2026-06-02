@@ -1,7 +1,9 @@
 <template>
   <section class="Home pt-4 sm:pt-6">
     <Alert class="pt-0 pb-2 sm:py-4">
-      <AlertTitle class="font-bold hidden sm:flex sm:gap-2"> <RocketIcon class="h-4 w-4 hidden sm:flex" /> Heads up!</AlertTitle>
+      <AlertTitle class="font-bold hidden sm:flex sm:gap-2">
+        <RocketIcon class="h-4 w-4 hidden sm:flex" /> Heads up!
+      </AlertTitle>
       <AlertDescription class="p-0 text-xs sm:text-sm">
         <p class="pt-2">无限图片储存数量，你可以上传不限数量的图片！</p>
         <p>图片首次访问后缓存，"永久"有效，包括全球分布的 CDN，以确保尽可能快地提供图像.</p>
@@ -9,18 +11,11 @@
       </AlertDescription>
     </Alert>
 
-    <!-- 广告位【可放图片/联盟JS广告】 -->
-    <div class="ad-wrap my-4 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
-      <!-- 方式1：图片广告，替换链接和图片地址 -->
-      <a href="https://你的广告跳转网址.com" target="_blank">
-        <img src="你的广告图片地址.png" alt="广告" class="max-w-full h-auto">
+    <!-- 上方广告位 -->
+    <div class="ad-top my-4 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
+      <a href="广告跳转链接" target="_blank">
+        <img src="广告图片地址" alt="广告" class="max-w-full h-auto" />
       </a>
-
-      <!-- 方式2：联盟JS广告，注释上面图片，把广告商JS粘贴在这里
-      <script>
-        //此处粘贴广告联盟JS代码
-      </script>
-      -->
     </div>
 
     <!-- 工具栏 -->
@@ -38,16 +33,26 @@
         </RadioGroup>
       </div>
     </div>
+
     <!-- 上传 -->
     <Upload v-model="fileList" :UploadConfig="UploadConfig" :uploadAPI="uploadAPI" />
     <section v-show="fileList.length" class="vh-tools">
       <Button @click="fileList = []">清空</Button>
-      <Button @click="vh.CopyText(fileList.map((i: any) => i.upload_blob).join('\n'))">复制全部</Button>
+      <Button @click="vh.CopyText(fileList.map(i => i.upload_blob).join('\n'))">复制全部</Button>
     </section>
-    <!-- 展示 -->
+
+    <!-- 图片列表 -->
     <ResList v-model="fileList" :nodeHost="nodeHost" />
+
+    <!-- 页面底部广告位 -->
+    <div class="ad-bottom mt-6 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
+      <a href="底部广告链接" target="_blank">
+        <img src="底部广告图片地址" alt="底部广告" class="max-w-full h-auto" />
+      </a>
+    </div>
   </section>
 </template>
+
 <script setup lang="ts">
 import vh from 'vh-plugin';
 import { ref, watch } from 'vue';
@@ -59,37 +64,43 @@ import { RocketIcon } from '@radix-icons/vue';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-// IPFS节点
+
+// IPFS接口地址
 const nodeHost = ref<string>(import.meta.env.VITE_IMG_API_URL || location.origin);
-// 上传接口
 const uploadAPI = ref<string>(`${import.meta.env.VITE_IMG_API_URL || location.origin}/upload`);
+
 // 上传配置
-const UploadConfig = ref<any>({
-  AcceptTypes: 'image/*', // 允许上传的类型，使用逗号分隔
-  Max: 0, //多选个数，0为不限制
-  MaxSize: 15, //单个文件大小限制，单位：MB
+const UploadConfig = ref({
+  AcceptTypes: 'image/*',
+  Max: 0,
+  MaxSize: 15,
 });
-// 上传列表
-const fileList = ref<Array<any>>(JSON.parse(localStorage.getItem('zychUpImageList') || '[]'));
+
+// 本地缓存上传记录
+const fileList = ref(JSON.parse(localStorage.getItem('zychUpImageList') || '[]'));
+
+// 监听列表变化存入本地
 watch(fileList, (newVal) => {
   localStorage.setItem(
     'zychUpImageList',
     JSON.stringify(
       newVal
-        .filter((i: any) => i.upload_status == 'success')
-        .map((i: any) => {
-          i.upload_blob = formatURL({ nodeHost: nodeHost.value }, i.upload_result);
-          return i;
-        }),
-    ),
+        .filter(item => item.upload_status === 'success')
+        .map(item => {
+          item.upload_blob = formatURL({ nodeHost: nodeHost.value }, item.upload_result);
+          return item;
+        })
+    )
   );
 });
 </script>
 
 <style scoped lang="less">
 @import 'Home.less';
-.ad-wrap{
-  width: 100%;
+.ad-top {
+  min-height:70px;
+}
+.ad-bottom {
   min-height:70px;
 }
 </style>
