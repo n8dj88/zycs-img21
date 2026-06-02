@@ -11,14 +11,15 @@
       </AlertDescription>
     </Alert>
 
-    <!-- 顶部广告位 -->
+    <!-- 顶部广告（先空白，后期填图片链接） -->
     <div class="ad-top my-4 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
-      <a href="替换广告跳转链接" target="_blank">
-        <img src="替换广告图片地址" alt="广告" class="max-w-full h-auto" />
+      <!-- 上线替换：href="广告链接" src="图片URL" -->
+      <a href="" target="_blank">
+        <img src="" alt="广告" class="max-w-full h-auto" />
       </a>
     </div>
 
-    <!-- 切换栏 -->
+    <!-- 工具栏 -->
     <div class="pt-6 flex items-center text-sm">
       <div class="sync shrink-0">
         <RadioGroup default-value="sync" class="flex items-center gap-4 [&>label]:flex [&>label]:items-center [&>label]:space-x-2 [&>label]:cursor-pointer">
@@ -34,21 +35,20 @@
       </div>
     </div>
 
-    <!-- 上传组件 -->
+    <!-- 上传 -->
     <Upload v-model="fileList" :UploadConfig="UploadConfig" :uploadAPI="uploadAPI" />
-
     <section v-show="fileList.length" class="vh-tools">
       <Button @click="fileList = []">清空</Button>
       <Button @click="vh.CopyText(fileList.map(item => item.upload_blob).join('\n'))">复制全部</Button>
     </section>
 
-    <!-- 结果列表 -->
+    <!-- 图片列表 -->
     <ResList v-model="fileList" :nodeHost="nodeHost" />
 
-    <!-- 底部广告位 -->
+    <!-- 底部广告 -->
     <div class="ad-bottom mt-6 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
-      <a href="底部广告链接" target="_blank">
-        <img src="底部广告图片地址" alt="底部广告" class="max-w-full h-auto" />
+      <a href="" target="_blank">
+        <img src="" alt="底部广告" class="max-w-full h-auto" />
       </a>
     </div>
   </section>
