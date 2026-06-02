@@ -27,12 +27,10 @@
           <a title="打赏站长" target="_blank" href="/reward.webp">
             <img class="w-8" src="@/assets/images/footer/shang.svg" />
           </a>
-
         </div>
         <span class="w-full font-bold text-lg text-center">图屋图床</span>
       </section>
     </main>
+    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=LDChTetaZYmbr36V&ck=LDChTetaZYmbr36V"></script>
   </footer>
 </template>
-<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-<script>LA.init({id:"LDChTetaZYmbr36V",ck:"LDChTetaZYmbr36V"})</script>
