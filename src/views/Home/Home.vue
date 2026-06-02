@@ -9,12 +9,18 @@
       </AlertDescription>
     </Alert>
 
-    <!-- 上方广告位 -->
-    <div class="ad-top my-4 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
-      <a href="广告链接" target="_blank">
-        <img src="广告图片地址" alt="广告" class="max-w-full h-auto">
+    <!-- 广告位【可放图片/联盟JS广告】 -->
+    <div class="ad-wrap my-4 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
+      <!-- 方式1：图片广告，替换链接和图片地址 -->
+      <a href="https://你的广告跳转网址.com" target="_blank">
+        <img src="你的广告图片地址.png" alt="广告" class="max-w-full h-auto">
       </a>
-      <!-- JS广告就注释上面，粘贴广告代码 -->
+
+      <!-- 方式2：联盟JS广告，注释上面图片，把广告商JS粘贴在这里
+      <script>
+        //此处粘贴广告联盟JS代码
+      </script>
+      -->
     </div>
 
     <!-- 工具栏 -->
@@ -40,13 +46,6 @@
     </section>
     <!-- 展示 -->
     <ResList v-model="fileList" :nodeHost="nodeHost" />
-
-    <!-- 底部广告位（列表最下方） -->
-    <div class="ad-bottom mt-6 rounded-lg border border-dashed border-slate-300 p-3 bg-slate-50 text-center">
-      <a href="底部广告链接" target="_blank">
-        <img src="底部广告图片" alt="底部广告" class="max-w-full h-auto">
-      </a>
-    </div>
   </section>
 </template>
 <script setup lang="ts">
@@ -89,10 +88,8 @@ watch(fileList, (newVal) => {
 
 <style scoped lang="less">
 @import 'Home.less';
-.ad-top{
-  min-height:70px;
-}
-.ad-bottom{
+.ad-wrap{
+  width: 100%;
   min-height:70px;
 }
 </style>
