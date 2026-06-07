@@ -1,5 +1,4 @@
-<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-<script>LA.init({id:"LDChTetaZYmbr36V",ck:"LDChTetaZYmbr36V"})</script>
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=LDChTetaZYmbr36V&ck=LDChTetaZYmbr36V"></script>
 <template>
   <footer class="w-full max-w-[1666px] mt-36 pb-4">
     <main class="m-auto pt-4 flex flex-col-reverse md:flex-row justify-between gap-2 md:gap-16 w-full max-w-[1666px] border-t">
