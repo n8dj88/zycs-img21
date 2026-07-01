@@ -1,101 +1,59 @@
-@import './Harmony_Medium';
+// 引入字体样式
+@import "./Harmony_Medium.less";
 
-html {
-  padding: 0;
-  margin: 0;
-  font-family: 'HarmonyOS Sans SC Medium', sans-serif !important;
-  color: #000;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
-  text-rendering: optimizelegibility;
-  -webkit-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  scroll-behavior: smooth;
-
-  ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
-  ::-webkit-scrollbar-thumb,
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #bdbdbd;
-  }
-
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 #fff;
-    background-color: transparent;
+// 广告位全局美化（对应Home页面 ad-top ad-bottom）
+.ad-top, .ad-bottom {
+  border: 1px dashed #cbd5e1 !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  min-height: 80px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem !important;
+  transition: border-color .2s;
+  &:hover {
+    border-color: #94a3b8 !important;
   }
 }
 
-body {
-  margin: 0;
-  width: 100vw;
-  height: max-content;
-  cursor: url('../images/default.cur'), default;
-  overflow-x: hidden;
-  user-select: none;
-
-  & > #app {
-    box-sizing: border-box;
-    padding: 3.5rem 1rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: max-content;
-    min-height: 96vh;
-
-    & > main {
-      flex: 1;
-      box-sizing: border-box;
-      width: 100%;
-      max-width: 1666px;
-      height: max-content;
-    }
+// 上传批量操作栏
+.vh-tools {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  @media(max-width:768px) {
+    flex-wrap: wrap;
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-input,
-button {
-  outline: none !important;
-  border-radius: 0;
-
-  &:focus {
-    outline: none !important;
-    box-shadow: none !important;
+// 页脚通用美化（Footer组件自动生效）
+footer {
+  margin-top: 4rem !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid #e2e8f0 !important;
+  @media(max-width:768px) {
+    margin-top: 2.5rem !important;
   }
 }
 
-.qrcode {
-  flex-shrink: 0;
-  width: 3.5rem;
-  height: 3.5rem;
-  object-fit: cover;
+// Alert公告提示框美化
+div[role="alert"] {
+  border-radius: 10px;
+  background: #f0f7ff;
+  border: 1px solid #bfdbfe;
+}
 
-  &.scale {
-    width: 10rem !important;
-    height: 10rem !important;
+// 自定义通用hover工具类，可直接在模板使用
+.hover-fade {
+  transition: opacity 0.2s;
+  &:hover {
+    opacity: 0.85;
+  }
+}
+.hover-scale {
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.04);
   }
 }
