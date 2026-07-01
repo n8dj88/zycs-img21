@@ -14,21 +14,16 @@
   <meta itemprop="image" content="/favicon.ico" />
   <link rel="icon" href="/favicon.ico" />
 </head>
+
 <body>
   <div id="app"></div>
 
-  <!-- 51.la 统计脚本移入body内部，SPA路由自动统计配置 -->
-  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=LF4U9nBhjp2SIC8T&ck=LF4U9nBhjp2SIC8T"></script>
+  <!-- 51.la 官方异步加载统计代码（你提供的这段） -->
   <script>
-    LA.init({
-      id: "LF4U9nBhjp2SIC8T",
-      ck: "LF4U9nBhjp2SIC8T",
-      hashMode: true,    // Vue hash路由必开，切换页面自动统计
-      autoTrack: true    // 自动监听路由变更上报PV
-    })
+!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"LF4U9nBhjp2SIC8T",ck:"LF4U9nBhjp2SIC8T"});
   </script>
 
-  <!-- Vue入口脚本 -->
+  <!-- Vue项目入口脚本 -->
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
